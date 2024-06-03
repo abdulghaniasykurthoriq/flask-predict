@@ -1,4 +1,8 @@
 from flask import Flask, request, jsonify
+import flask
+
+print("Flask version:", flask.__version__)
+
 import joblib
 import re
 import requests
@@ -6,27 +10,9 @@ import os
 
 app = Flask(__name__)
 
-# URLs to the model and vectorizer
-# model_url = 'https://storage.googleapis.com/bucket-flask-expres/hoax_detector_model.pkl'
-# vectorizer_url = 'https://storage.googleapis.com/bucket-flask-expres/tfidf_vectorizer.pkl'
-
 # Local filenames
 model_filename = 'hoax_detector_model.pkl'
 vectorizer_filename = 'tfidf_vectorizer.pkl'
-
-# Function to download files
-def download_file(url, filename):
-    response = requests.get(url)
-    response.raise_for_status()  # Check if the download is successful
-    with open(filename, 'wb') as f:
-        f.write(response.content)
-
-# Download the model and vectorizer if not already downloaded
-if not os.path.exists(model_filename):
-    download_file(model_url, model_filename)
-
-if not os.path.exists(vectorizer_filename):
-    download_file(vectorizer_url, vectorizer_filename)
 
 # Load the trained model and vectorizer
 model = joblib.load(model_filename)
