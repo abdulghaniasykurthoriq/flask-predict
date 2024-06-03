@@ -39,5 +39,11 @@ def preprocess_text(text):
     text = re.sub(r'[^\w\s]', '', text)  # Remove punctuation
     return text
 
+# development
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+# production
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
+
