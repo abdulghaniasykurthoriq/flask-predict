@@ -1,3 +1,10 @@
+import warnings
+from sklearn.exceptions import ConvergenceWarning
+
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
+warnings.filterwarnings("ignore", category=ConvergenceWarning, module="sklearn")
+
 from flask import Flask, request, jsonify
 import joblib
 import re
